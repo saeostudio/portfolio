@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stefan Land | Photography</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
 </head>
 <body>
+
     <header>
-        <div class="site-title"><a href="index.html">Stefan Land</a></div>
+        <div class="site-logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="Stefan Land" class="logo-img">
+            </a>
+        </div>
         <nav class="nav-links">
             <a href="index.html">Work</a>
             <a href="about.html">About</a>
@@ -16,22 +22,123 @@
         </nav>
     </header>
 
-    <main class="home-container">
-        <div class="category-list">
-            <a href="commissioned.html" class="category-link">Commissioned</a>
-            <a href="personal.html" class="category-link">Personal Projects</a>
-            <a href="travel.html" class="category-link">Travel</a>
-            <a href="portraits.html" class="category-link">Portraits</a>
-            <a href="analogue.html" class="category-link">Analogue</a>
-            <a href="miscellaneous.html" class="category-link">Miscellaneous</a>
-            <a href="noorderpoort.html" class="category-link">Noorderpoort</a>
+    <main>
+        <div class="home-grid">
+            <!-- Project Card 1: Commissioned -->
+            <div class="project-card">
+                <a href="commissioned.html" class="card-image-wrapper">
+                    <img src="https://placehold.co/800x600/e0e0e0/ffffff?text=Commissioned" alt="Commissioned Work" class="card-image">
+                </a>
+                <div class="card-meta">
+                    <div class="card-title">Commissioned</div>
+                    <div class="card-details">
+                        Commercial & Editorial<br>
+                        2021—2024
+                    </div>
+                    <div class="card-description">
+                        Selected works for magazines, brands, and agencies. Focus on lifestyle and fashion.
+                    </div>
+                </div>
+                <a href="commissioned.html" class="view-link">[View Project]</a>
+            </div>
+
+            <!-- Project Card 2: Personal -->
+            <div class="project-card">
+                <a href="personal.html" class="card-image-wrapper">
+                    <img src="https://placehold.co/800x600/e0e0e0/ffffff?text=Personal" alt="Personal Projects" class="card-image">
+                </a>
+                <div class="card-meta">
+                    <div class="card-title">Personal</div>
+                    <div class="card-details">
+                        Ongoing Series<br>
+                        Various Locations
+                    </div>
+                    <div class="card-description">
+                        Explorations of light, shadow, and the mundane everyday.
+                    </div>
+                </div>
+                <a href="personal.html" class="view-link">[View Project]</a>
+            </div>
+
+            <!-- Project Card 3: Portraits -->
+            <div class="project-card">
+                <a href="portraits.html" class="card-image-wrapper">
+                    <img src="https://placehold.co/800x600/e0e0e0/ffffff?text=Portraits" alt="Portraits" class="card-image">
+                </a>
+                <div class="card-meta">
+                    <div class="card-title">Portraits</div>
+                    <div class="card-details">
+                        Studio & Location<br>
+                        2020—2024
+                    </div>
+                    <div class="card-description">
+                        Intimate studies of character and form.
+                    </div>
+                </div>
+                <a href="portraits.html" class="view-link">[View Project]</a>
+            </div>
+
+            <!-- Project Card 4: Travel -->
+            <div class="project-card">
+                <a href="travel.html" class="card-image-wrapper">
+                    <img src="https://placehold.co/800x600/e0e0e0/ffffff?text=Travel" alt="Travel" class="card-image">
+                </a>
+                <div class="card-meta">
+                    <div class="card-title">Travel</div>
+                    <div class="card-details">
+                        International<br>
+                        2018—2024
+                    </div>
+                    <div class="card-description">
+                        Visual diaries from trips across Europe and Asia.
+                    </div>
+                </div>
+                <a href="travel.html" class="view-link">[View Project]</a>
+            </div>
+
+            <!-- Project Card 5: Analogue -->
+            <div class="project-card">
+                <a href="analogue.html" class="card-image-wrapper">
+                    <img src="https://placehold.co/800x600/e0e0e0/ffffff?text=Analogue" alt="Analogue" class="card-image">
+                </a>
+                <div class="card-meta">
+                    <div class="card-title">Analogue</div>
+                    <div class="card-details">
+                        35mm & 120 Film<br>
+                        Archive
+                    </div>
+                    <div class="card-description">
+                        Hand-developed and printed works.
+                    </div>
+                </div>
+                <a href="analogue.html" class="view-link">[View Project]</a>
+            </div>
+
+             <!-- Project Card 6: Noorderpoort -->
+             <div class="project-card">
+                <a href="noorderpoort.html" class="card-image-wrapper">
+                    <img src="https://placehold.co/800x600/e0e0e0/ffffff?text=Noorderpoort" alt="Noorderpoort" class="card-image">
+                </a>
+                <div class="card-meta">
+                    <div class="card-title">Noorderpoort</div>
+                    <div class="card-details">
+                        Institutional<br>
+                        2023
+                    </div>
+                    <div class="card-description">
+                        Architectural and student life documentation.
+                    </div>
+                </div>
+                <a href="noorderpoort.html" class="view-link">[View Project]</a>
+            </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2024 Stefan Land Photography</p>
+        <div>Stefan Land Portfolio</div>
+        <div>Index</div>
+        <div>Information</div>
     </footer>
 
-    <script src="js/script.js"></script>
 </body>
 </html>

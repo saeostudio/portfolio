@@ -3,6 +3,7 @@
     --text-color: #000000;
     --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --spacing-unit: 20px;
+    --grid-gap: 40px;
 }
 
 * {
@@ -15,7 +16,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-main);
-    font-size: 16px;
+    font-size: 14px; /* Slightly smaller for that technical look */
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
 }
@@ -40,14 +41,14 @@ header {
     z-index: 100;
     display: flex;
     justify-content: space-between;
-    background-color: var(--bg-color); /* Ensure readability */
+    align-items: center;
+    background-color: var(--bg-color);
 }
 
-.site-title {
-    font-weight: bold;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.logo-img {
+    height: 40px; /* Adjust based on logo aspect ratio */
+    width: auto;
+    display: block;
 }
 
 .nav-links {
@@ -58,157 +59,146 @@ header {
 .nav-links a {
     text-transform: uppercase;
     font-size: 0.9rem;
+    font-weight: 500;
 }
 
 /* Main Container */
 main {
-    padding-top: 80px; /* Space for fixed header */
+    padding-top: 100px; /* Space for fixed header */
     padding-bottom: var(--spacing-unit);
     padding-left: var(--spacing-unit);
     padding-right: var(--spacing-unit);
     min-height: 100vh;
 }
 
-/* Homepage Layout: Center List/Grid */
-.home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(100vh - 80px); /* Adjust for header */
-}
-
-.category-list {
+/* Homepage Grid Layout */
+.home-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 10px;
-    text-align: center;
-}
-
-.category-link {
-    font-size: 2rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #333;
-    transition: color 0.3s ease;
-}
-
-.category-link:hover {
-    color: #000;
-    text-decoration: none; /* Custom hover style */
-    opacity: 0.7;
-}
-
-/* Category Page Layout: Grid of Projects */
-.category-header {
-    margin-bottom: 40px;
-    text-align: center;
-}
-
-.category-title {
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-}
-
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-.project-item {
-    display: block;
-    text-decoration: none;
-}
-
-.project-thumb {
-    width: 100%;
-    height: auto;
-    display: block;
-    filter: grayscale(100%);
-    transition: filter 0.3s ease;
-}
-
-.project-item:hover .project-thumb {
-    filter: grayscale(0%);
-}
-
-.project-title {
-    margin-top: 10px;
-    font-size: 0.9rem;
-    text-align: left;
-    text-transform: uppercase;
-}
-
-.project-title-large {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-}
-
-.project-description {
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
-    color: #444;
-}
-
-/* Project Page Layout: Vertical Stack */
-.project-container {
-    max-width: 1200px;
+    gap: 60px; /* More space between rows */
+    max-width: 1600px;
     margin: 0 auto;
 }
 
-.project-header {
-    margin-bottom: 40px;
-    text-align: center;
-}
-
-.project-images {
+.project-card {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    align-items: center;
+    gap: 15px;
 }
 
-.project-image {
-    max-width: 100%;
-    height: auto;
+.card-image-wrapper {
+    position: relative;
+    width: 100%;
+    background-color: #f0f0f0;
+    /* Aspect ratio styling */
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+/* Tech/Wireframe markers */
+.card-image-wrapper::before,
+.card-image-wrapper::after {
+    content: '+';
+    position: absolute;
+    color: #ccc;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 1;
+    padding: 5px;
+}
+.card-image-wrapper::before { top: 0; left: 0; }
+.card-image-wrapper::after { bottom: 0; right: 0; }
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
+    transition: opacity 0.3s ease;
 }
 
-/* Simple Pages (About, Contact) */
-.text-page {
-    max-width: 800px;
-    margin: 0 auto;
-    padding-top: 40px;
+.project-card:hover .card-image {
+    opacity: 0.8;
 }
 
-.text-page h1 {
-    margin-bottom: 20px;
+.card-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Title left, Details right */
+    gap: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
 }
 
-.text-page p {
-    margin-bottom: 15px;
+.card-title {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+
+.card-details {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+.card-description {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 5px;
+    grid-column: 1 / -1; /* Span full width */
+}
+
+.view-link {
+    margin-top: 10px;
+    display: inline-block;
+    font-size: 0.9rem;
+    text-decoration: underline;
 }
 
 /* Footer */
 footer {
     padding: var(--spacing-unit);
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
     font-size: 0.8rem;
-    color: #666;
-    margin-top: 40px;
+    color: #999;
     border-top: 1px solid #eee;
+    margin-top: 60px;
+}
+
+/* Category Page Reuse */
+.category-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+.category-title {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Existing Project Grid for Category Pages */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+.project-item .project-thumb {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/2;
+    object-fit: cover;
+}
+.project-item .project-title {
+    margin-top: 8px;
+    font-weight: bold;
 }
 
 /* Responsive */
 @media (min-width: 768px) {
-    .category-list {
-        grid-template-columns: 1fr 1fr; /* 2 columns on desktop for home menu? Or just keep list? */
+    .home-grid {
+        grid-template-columns: 1fr 1fr;
         gap: 40px;
     }
 }
