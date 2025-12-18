@@ -174,9 +174,19 @@ footer {
     aspect-ratio: 3/2;
     object-fit: cover;
 }
-.project-item .project-title {
+.project-info {
     margin-top: 8px;
+}
+
+.project-item .project-title {
     font-weight: bold;
+    text-transform: uppercase;
+}
+
+.project-year {
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 2px;
 }
 
 /* Responsive */
