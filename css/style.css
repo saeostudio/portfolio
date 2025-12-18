@@ -123,9 +123,6 @@ main {
 }
 
 .card-meta {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Title left, Details right */
-    gap: 20px;
     border-top: 1px solid #eee;
     padding-top: 10px;
 }
@@ -134,19 +131,6 @@ main {
     font-weight: bold;
     text-transform: uppercase;
     font-size: 1rem;
-}
-
-.card-details {
-    font-size: 0.9rem;
-    color: #555;
-    line-height: 1.4;
-}
-
-.card-description {
-    font-size: 0.9rem;
-    color: #777;
-    margin-top: 5px;
-    grid-column: 1 / -1; /* Span full width */
 }
 
 .view-link {
