@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analogue - Stefan Land</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js" defer></script>
 </head>
 <body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
 
     <header>
         <div class="site-logo">
@@ -15,33 +16,36 @@
                 <img src="images/logo.png" alt="Stefan Land" class="logo-img">
             </a>
         </div>
-        <nav class="nav-links">
-            <a href="index.html">Work</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-        </nav>
+        <div class="menu-toggle" id="menuToggle">[ Menu ]</div>
     </header>
 
-    <main>
-        <div class="category-header">
-            <h1 class="category-title">Analogue</h1>
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-close" id="menuClose">[ Close ]</div>
+        <div class="menu-links">
+            <a href="commissioned.html" class="menu-link">Commissioned</a>
+            <a href="personal.html" class="menu-link">Personal</a>
+            <a href="portraits.html" class="menu-link">Portraits</a>
+            <a href="travel.html" class="menu-link">Travel</a>
+            <a href="analogue.html" class="menu-link">Analogue</a>
+            <a href="about.html" class="menu-link" style="font-size: 2rem; margin-top: 40px; -webkit-text-stroke: 0; color: black;">About</a>
         </div>
+    </div>
 
-        <div class="project-grid">
-            <a href="project.html" class="project-item">
-                <img src="https://placehold.co/600x400?text=35mm" alt="35mm Diary" class="project-thumb">
-                <div class="project-title">35mm Diary</div>
+    <main class="list-container">
+        <h1 class="category-title-large">Analogue</h1>
+        <div class="project-list">
+            <a href="project.html" class="list-item" data-img="https://placehold.co/600x400?text=35mm">
+                <span class="list-item-title">35mm Diary</span>
+                <span class="list-item-year">Archive</span>
             </a>
-            <a href="project.html" class="project-item">
-                <img src="https://placehold.co/600x400?text=Medium+Format" alt="Medium Format" class="project-thumb">
-                <div class="project-title">Medium Format</div>
+            <a href="project.html" class="list-item" data-img="https://placehold.co/600x400?text=120">
+                <span class="list-item-title">Medium Format</span>
+                <span class="list-item-year">Archive</span>
             </a>
         </div>
     </main>
 
-    <footer>
-        &copy; 2024 Stefan Land. All rights reserved.
-    </footer>
-
+    <img id="hoverRevealImg" class="hover-reveal" src="" alt="">
+    <script src="js/script.js"></script>
 </body>
 </html>

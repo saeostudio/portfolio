@@ -3,100 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stefan Land | Photography</title>
+    <title>Stefan Land | Portfolio</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js" defer></script>
+    <!-- Load GSAP for Draggable (Optional, using Vanilla for now to be safe, but can add if needed) -->
 </head>
 <body>
 
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Fixed Header -->
     <header>
         <div class="site-logo">
             <a href="index.html">
                 <img src="images/logo.png" alt="Stefan Land" class="logo-img">
             </a>
         </div>
-        <nav class="nav-links">
-            <a href="index.html">Work</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-        </nav>
+        <div class="menu-toggle" id="menuToggle">[ Menu ]</div>
     </header>
 
-    <main>
-        <div class="home-grid">
-            <!-- Project Card 1: Commissioned -->
-            <div class="project-card">
-                <a href="commissioned.html" class="card-image-wrapper">
-                    <img src="https://placehold.co/800x600/e0e0e0/ffffff?text=Commissioned" alt="Commissioned Work" class="card-image">
-                </a>
-                <div class="card-meta">
-                    <div class="card-title">Commissioned</div>
-                </div>
-                <a href="commissioned.html" class="view-link">[View Project]</a>
-            </div>
+    <!-- Navigation Overlay -->
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-close" id="menuClose">[ Close ]</div>
+        <div class="menu-links">
+            <a href="commissioned.html" class="menu-link" data-img="https://placehold.co/600x400?text=Comm">Commissioned</a>
+            <a href="personal.html" class="menu-link" data-img="https://placehold.co/600x400?text=Pers">Personal</a>
+            <a href="portraits.html" class="menu-link" data-img="https://placehold.co/600x400?text=Port">Portraits</a>
+            <a href="travel.html" class="menu-link" data-img="https://placehold.co/600x400?text=Trav">Travel</a>
+            <a href="analogue.html" class="menu-link" data-img="https://placehold.co/600x400?text=Film">Analogue</a>
+            <a href="about.html" class="menu-link" style="-webkit-text-stroke: 0; color: black; font-size: 2rem; margin-top: 40px;">About</a>
+        </div>
+    </div>
 
-            <!-- Project Card 2: Personal -->
-            <div class="project-card">
-                <a href="personal.html" class="card-image-wrapper">
-                    <img src="https://placehold.co/800x600/e0e0e0/ffffff?text=Personal" alt="Personal Projects" class="card-image">
-                </a>
-                <div class="card-meta">
-                    <div class="card-title">Personal</div>
-                </div>
-                <a href="personal.html" class="view-link">[View Project]</a>
-            </div>
+    <!-- Homepage: Draggable Desk -->
+    <main class="desk-container" id="deskContainer">
+        <!-- Scattered Projects -->
+        <div class="draggable-item" style="top: 20%; left: 30%; transform: rotate(-5deg);">
+            <img src="https://placehold.co/600x400/e0e0e0/ffffff?text=Talentweb" alt="Talentweb">
+        </div>
 
-            <!-- Project Card 3: Portraits -->
-            <div class="project-card">
-                <a href="portraits.html" class="card-image-wrapper">
-                    <img src="https://placehold.co/800x600/e0e0e0/ffffff?text=Portraits" alt="Portraits" class="card-image">
-                </a>
-                <div class="card-meta">
-                    <div class="card-title">Portraits</div>
-                </div>
-                <a href="portraits.html" class="view-link">[View Project]</a>
-            </div>
+        <div class="draggable-item" style="top: 50%; left: 60%; transform: rotate(10deg); z-index: 2;">
+            <img src="https://placehold.co/600x800/d0d0d0/ffffff?text=Qbuzz" alt="Qbuzz">
+        </div>
 
-            <!-- Project Card 4: Travel -->
-            <div class="project-card">
-                <a href="travel.html" class="card-image-wrapper">
-                    <img src="https://placehold.co/800x600/e0e0e0/ffffff?text=Travel" alt="Travel" class="card-image">
-                </a>
-                <div class="card-meta">
-                    <div class="card-title">Travel</div>
-                </div>
-                <a href="travel.html" class="view-link">[View Project]</a>
-            </div>
+        <div class="draggable-item" style="top: 10%; left: 70%; transform: rotate(5deg);">
+            <img src="https://placehold.co/500x500/f0f0f0/ffffff?text=DNA" alt="DNA Festival">
+        </div>
 
-            <!-- Project Card 5: Analogue -->
-            <div class="project-card">
-                <a href="analogue.html" class="card-image-wrapper">
-                    <img src="https://placehold.co/800x600/e0e0e0/ffffff?text=Analogue" alt="Analogue" class="card-image">
-                </a>
-                <div class="card-meta">
-                    <div class="card-title">Analogue</div>
-                </div>
-                <a href="analogue.html" class="view-link">[View Project]</a>
-            </div>
+        <div class="draggable-item" style="top: 60%; left: 10%; transform: rotate(-15deg);">
+            <img src="https://placehold.co/600x400/eeeeee/ffffff?text=Portraits" alt="Portraits">
+        </div>
 
-             <!-- Project Card 6: Noorderpoort -->
-             <div class="project-card">
-                <a href="noorderpoort.html" class="card-image-wrapper">
-                    <img src="https://placehold.co/800x600/e0e0e0/ffffff?text=Noorderpoort" alt="Noorderpoort" class="card-image">
-                </a>
-                <div class="card-meta">
-                    <div class="card-title">Noorderpoort</div>
-                </div>
-                <a href="noorderpoort.html" class="view-link">[View Project]</a>
-            </div>
+        <div class="draggable-item" style="top: 30%; left: 50%; transform: rotate(2deg);">
+            <img src="https://placehold.co/400x600/cccccc/ffffff?text=Japan" alt="Japan">
+        </div>
+
+        <!-- Instructions (Bottom Right) -->
+        <div style="position: absolute; bottom: 40px; right: 40px; font-family: 'Courier New', monospace; font-size: 12px; opacity: 0.5; pointer-events: none;">
+            ( drag to organize )<br>
+            ( click for stickers )
         </div>
     </main>
 
-    <footer>
-        <div>Stefan Land Portfolio</div>
-        <div>Index</div>
-        <div>Information</div>
-    </footer>
-
+    <script src="js/script.js"></script>
 </body>
 </html>

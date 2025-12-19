@@ -1,198 +1,273 @@
 :root {
     --bg-color: #ffffff;
     --text-color: #000000;
+    --accent-color: #0000ff; /* Classic "Link Blue" for an internet feel, or just black */
     --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    --spacing-unit: 20px;
-    --grid-gap: 40px;
+    --font-mono: 'Courier New', Courier, monospace;
 }
 
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+    cursor: none; /* Hide default cursor for custom one */
 }
 
 body {
+    margin: 0;
+    padding: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-main);
-    font-size: 14px; /* Slightly smaller for that technical look */
-    line-height: 1.5;
+    overflow-x: hidden; /* Prevent horizontal scroll */
     -webkit-font-smoothing: antialiased;
 }
 
 a {
     color: inherit;
     text-decoration: none;
-    cursor: pointer;
 }
 
-a:hover {
-    text-decoration: underline;
+/* Custom Cursor */
+.cursor-dot,
+.cursor-outline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
 }
 
-/* Header */
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: black;
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+/* Hover state for cursor */
+body.hovering .cursor-outline {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-color: transparent;
+}
+
+/* Header (Fixed) */
 header {
-    padding: var(--spacing-unit);
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 100;
+    padding: 20px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--bg-color);
+    z-index: 1000;
+    pointer-events: none; /* Let clicks pass through to canvas */
 }
 
-.logo-img {
-    height: 40px; /* Adjust based on logo aspect ratio */
+header * {
+    pointer-events: auto; /* Re-enable clicks on logo/nav */
+}
+
+.site-logo img {
+    height: 30px;
     width: auto;
     display: block;
 }
 
-.nav-links {
-    display: flex;
-    gap: var(--spacing-unit);
-}
-
-.nav-links a {
+.menu-toggle {
+    font-family: var(--font-mono);
+    font-size: 14px;
     text-transform: uppercase;
-    font-size: 0.9rem;
-    font-weight: 500;
+    cursor: pointer; /* Fallback */
+    mix-blend-mode: difference; /* Ensure visibility over images */
+    color: black; /* mix-blend works better with white/black */
 }
 
-/* Main Container */
-main {
-    padding-top: 100px; /* Space for fixed header */
-    padding-bottom: var(--spacing-unit);
-    padding-left: var(--spacing-unit);
-    padding-right: var(--spacing-unit);
-    min-height: 100vh;
+/* Fullscreen Menu Overlay */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
 }
 
-/* Homepage Grid Layout */
-.home-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 60px; /* More space between rows */
-    max-width: 1600px;
+.menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+.menu-link {
+    font-family: var(--font-main);
+    font-size: 4rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    color: transparent;
+    -webkit-text-stroke: 1px black; /* Outline text */
+    transition: color 0.3s, letter-spacing 0.3s;
+    position: relative;
+}
+
+.menu-link:hover {
+    color: black;
+    letter-spacing: 0px;
+}
+
+.menu-close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Homepage "Desk" Layout */
+.desk-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.draggable-item {
+    position: absolute;
+    width: 250px;
+    cursor: grab;
+    transition: transform 0.1s;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    user-select: none;
+}
+
+.draggable-item:active {
+    cursor: grabbing;
+    transform: scale(1.05);
+    z-index: 500 !important; /* Bring to front on drag */
+}
+
+.draggable-item img {
+    width: 100%;
+    display: block;
+    pointer-events: none; /* Prevent image dragging behavior */
+}
+
+.stamp {
+    position: absolute;
+    font-size: 2rem;
+    pointer-events: none;
+    animation: fadeOut 2s forwards;
+    z-index: 100;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+    20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Category Page "List" Layout */
+.list-container {
+    padding-top: 120px;
+    padding-left: 40px;
+    padding-right: 40px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-.project-card {
+.category-title-large {
+    font-family: var(--font-main);
+    font-size: 6rem;
+    font-weight: 900;
+    margin-bottom: 60px;
+    letter-spacing: -3px;
+    line-height: 0.9;
+}
+
+.project-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    border-top: 2px solid black;
 }
 
-.card-image-wrapper {
-    position: relative;
-    width: 100%;
-    background-color: #f0f0f0;
-    /* Aspect ratio styling */
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    border: 1px solid #eee;
-}
-
-/* Tech/Wireframe markers */
-.card-image-wrapper::before,
-.card-image-wrapper::after {
-    content: '+';
-    position: absolute;
-    color: #ccc;
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 1;
-    padding: 5px;
-}
-.card-image-wrapper::before { top: 0; left: 0; }
-.card-image-wrapper::after { bottom: 0; right: 0; }
-
-.card-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: opacity 0.3s ease;
-}
-
-.project-card:hover .card-image {
-    opacity: 0.8;
-}
-
-.card-meta {
-    border-top: 1px solid #eee;
-    padding-top: 10px;
-}
-
-.card-title {
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 1rem;
-}
-
-.view-link {
-    margin-top: 10px;
-    display: inline-block;
-    font-size: 0.9rem;
-    text-decoration: underline;
-}
-
-/* Footer */
-footer {
-    padding: var(--spacing-unit);
+.list-item {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
-    color: #999;
-    border-top: 1px solid #eee;
-    margin-top: 60px;
-}
-
-/* Category Page Reuse */
-.category-header {
-    margin-bottom: 40px;
-    text-align: center;
-}
-.category-title {
+    align-items: baseline;
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+    font-family: var(--font-main);
     font-size: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    position: relative;
+    transition: padding-left 0.3s;
 }
 
-/* Existing Project Grid for Category Pages */
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-}
-.project-item .project-thumb {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 3/2;
-    object-fit: cover;
-}
-.project-info {
-    margin-top: 8px;
+.list-item:hover {
+    padding-left: 20px;
+    background-color: #f9f9f9;
 }
 
-.project-item .project-title {
+.list-item-title {
     font-weight: bold;
     text-transform: uppercase;
 }
 
-.project-year {
-    font-size: 0.85rem;
-    color: #777;
-    margin-top: 2px;
+.list-item-year {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Hover Reveal Image */
+.hover-reveal {
+    position: fixed;
+    width: 300px;
+    height: auto;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 800;
+    transform: translate(20px, 20px);
+    transition: opacity 0.2s;
+    mix-blend-mode: multiply;
+}
+
+.list-item:hover .hover-reveal {
+    opacity: 1; /* Logic handled via JS mostly for position, but simple CSS reveal works if nested properly.
+                   Actually, better to have a single reveal element followed by cursor.
+                   For simplicity, I'll put image inside link and hide it. */
 }
 
 /* Responsive */
-@media (min-width: 768px) {
-    .home-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 40px;
-    }
+@media (max-width: 768px) {
+    .menu-link { font-size: 2.5rem; }
+    .category-title-large { font-size: 3rem; }
+    .draggable-item { width: 150px; }
+    .cursor-dot, .cursor-outline { display: none; } /* Hide custom cursor on touch */
+    * { cursor: auto; }
 }

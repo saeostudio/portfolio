@@ -5,43 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel - Stefan Land</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js" defer></script>
 </head>
 <body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
 
     <header>
-        <div class="site-title"><a href="index.html">Stefan Land</a></div>
-        <nav class="nav-links">
-            <a href="index.html">Work</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-        </nav>
+        <div class="site-logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="Stefan Land" class="logo-img">
+            </a>
+        </div>
+        <div class="menu-toggle" id="menuToggle">[ Menu ]</div>
     </header>
 
-    <main>
-        <div class="category-header">
-            <h1 class="category-title">Travel</h1>
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-close" id="menuClose">[ Close ]</div>
+        <div class="menu-links">
+            <a href="commissioned.html" class="menu-link">Commissioned</a>
+            <a href="personal.html" class="menu-link">Personal</a>
+            <a href="portraits.html" class="menu-link">Portraits</a>
+            <a href="travel.html" class="menu-link">Travel</a>
+            <a href="analogue.html" class="menu-link">Analogue</a>
+            <a href="about.html" class="menu-link" style="font-size: 2rem; margin-top: 40px; -webkit-text-stroke: 0; color: black;">About</a>
         </div>
+    </div>
 
-        <div class="project-grid">
-            <a href="project.html" class="project-item">
-                <img src="https://placehold.co/600x400?text=Japan" alt="Japan 2023" class="project-thumb">
-                <div class="project-title">Japan 2023</div>
+    <main class="list-container">
+        <h1 class="category-title-large">Travel</h1>
+        <div class="project-list">
+            <a href="project.html" class="list-item" data-img="https://placehold.co/600x400?text=Japan">
+                <span class="list-item-title">Japan</span>
+                <span class="list-item-year">2023</span>
             </a>
-            <a href="project.html" class="project-item">
-                <img src="https://placehold.co/600x400?text=Iceland" alt="Iceland Landscapes" class="project-thumb">
-                <div class="project-title">Iceland Landscapes</div>
+            <a href="project.html" class="list-item" data-img="https://placehold.co/600x400?text=Iceland">
+                <span class="list-item-title">Iceland Landscapes</span>
+                <span class="list-item-year">2022</span>
             </a>
-             <a href="project.html" class="project-item">
-                <img src="https://placehold.co/600x400?text=Italy" alt="Italian Summer" class="project-thumb">
-                <div class="project-title">Italian Summer</div>
+            <a href="project.html" class="list-item" data-img="https://placehold.co/600x400?text=Italy">
+                <span class="list-item-title">Italian Summer</span>
+                <span class="list-item-year">2021</span>
             </a>
         </div>
     </main>
 
-    <footer>
-        &copy; 2024 Stefan Land. All rights reserved.
-    </footer>
-
+    <img id="hoverRevealImg" class="hover-reveal" src="" alt="">
+    <script src="js/script.js"></script>
 </body>
 </html>

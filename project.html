@@ -3,38 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Title - Stefan Land</title>
+    <title>Project - Stefan Land</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js" defer></script>
 </head>
 <body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
 
     <header>
-        <div class="site-title"><a href="index.html">Stefan Land</a></div>
-        <nav class="nav-links">
-            <a href="index.html">Work</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-        </nav>
+        <div class="site-logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="Stefan Land" class="logo-img">
+            </a>
+        </div>
+        <div class="menu-toggle" id="menuToggle">[ Menu ]</div>
     </header>
 
-    <main class="project-container">
-        <div class="project-header">
-            <h1 class="project-title-large">Project Title</h1>
-            <p class="project-description">Brief description of the project goes here. This area can explain the context, the client, or the artistic intent behind the series.</p>
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-close" id="menuClose">[ Close ]</div>
+        <div class="menu-links">
+            <a href="commissioned.html" class="menu-link">Commissioned</a>
+            <a href="personal.html" class="menu-link">Personal</a>
+            <a href="portraits.html" class="menu-link">Portraits</a>
+            <a href="travel.html" class="menu-link">Travel</a>
+            <a href="analogue.html" class="menu-link">Analogue</a>
+            <a href="about.html" class="menu-link" style="font-size: 2rem; margin-top: 40px; -webkit-text-stroke: 0; color: black;">About</a>
         </div>
+    </div>
 
-        <div class="project-images">
-            <img src="https://placehold.co/1200x800?text=Image+1" alt="Project Image 1" class="project-image">
-            <img src="https://placehold.co/1200x800?text=Image+2" alt="Project Image 2" class="project-image">
-            <img src="https://placehold.co/1200x800?text=Image+3" alt="Project Image 3" class="project-image">
-             <img src="https://placehold.co/800x1200?text=Image+4" alt="Project Image 4" class="project-image">
+    <main class="list-container" style="padding-top: 100px;">
+        <!-- Simple Project Template -->
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h1 style="font-size: 3rem; margin-bottom: 20px; text-transform: uppercase;">Project Title</h1>
+            <p style="font-family: 'Courier New', monospace; margin-bottom: 40px;">2025 — Client Name</p>
+
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <img src="https://placehold.co/1200x800?text=Image+1" style="width: 100%; display: block;" alt="Project Image">
+                <img src="https://placehold.co/1200x800?text=Image+2" style="width: 100%; display: block;" alt="Project Image">
+                <img src="https://placehold.co/1200x800?text=Image+3" style="width: 100%; display: block;" alt="Project Image">
+            </div>
+
+            <div style="margin-top: 60px; margin-bottom: 60px;">
+                <a href="javascript:history.back()" style="font-family: 'Courier New', monospace; text-decoration: underline;">[ Back to Index ]</a>
+            </div>
         </div>
     </main>
 
-    <footer>
-        &copy; 2024 Stefan Land. All rights reserved.
-    </footer>
-
+    <script src="js/script.js"></script>
 </body>
 </html>
