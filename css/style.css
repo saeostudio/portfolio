@@ -163,6 +163,10 @@ header * {
     transition: transform 0.1s;
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     user-select: none;
+    /* Added for label centering */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .draggable-item:active {
@@ -175,6 +179,23 @@ header * {
     width: 100%;
     display: block;
     pointer-events: none; /* Prevent image dragging behavior */
+}
+
+/* New Label Styling */
+.item-label {
+    background: black;
+    color: white;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.draggable-item:hover .item-label {
+    opacity: 1;
 }
 
 .stamp {
@@ -270,4 +291,7 @@ header * {
     .draggable-item { width: 150px; }
     .cursor-dot, .cursor-outline { display: none; } /* Hide custom cursor on touch */
     * { cursor: auto; }
+
+    /* On mobile, show labels always or on interaction? */
+    .draggable-item .item-label { opacity: 1; margin-top: 5px; background: rgba(0,0,0,0.8); }
 }
