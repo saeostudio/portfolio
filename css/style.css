@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&display=swap');
+
 :root {
     --bg-color: #ffffff;
     --text-color: #000000;
-    --accent-color: #0000ff; /* Classic "Link Blue" for an internet feel, or just black */
+    --accent-color: #0000ff;
     --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --font-mono: 'Courier New', Courier, monospace;
+    --font-title: 'Archivo', 'Arial Black', sans-serif;
 }
 
 * {
@@ -17,7 +20,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-main);
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -27,8 +30,7 @@ a {
 }
 
 /* Custom Cursor */
-.cursor-dot,
-.cursor-outline {
+.cursor-dot {
     position: fixed;
     top: 0;
     left: 0;
@@ -36,27 +38,9 @@ a {
     border-radius: 50%;
     z-index: 9999;
     pointer-events: none;
-}
-
-.cursor-dot {
     width: 8px;
     height: 8px;
     background-color: black;
-}
-
-.cursor-outline {
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    transition: width 0.2s, height 0.2s, background-color 0.2s;
-}
-
-/* Hover state for cursor */
-body.hovering .cursor-outline {
-    width: 60px;
-    height: 60px;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-color: transparent;
 }
 
 /* Header (Fixed) */
@@ -70,11 +54,11 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    pointer-events: none; /* Let clicks pass through to canvas */
+    pointer-events: none;
 }
 
 header * {
-    pointer-events: auto; /* Re-enable clicks on logo/nav */
+    pointer-events: auto;
 }
 
 .site-logo img {
@@ -87,9 +71,9 @@ header * {
     font-family: var(--font-mono);
     font-size: 14px;
     text-transform: uppercase;
-    cursor: pointer; /* Fallback */
-    mix-blend-mode: difference; /* Ensure visibility over images */
-    color: black; /* mix-blend works better with white/black */
+    cursor: pointer;
+    mix-blend-mode: difference;
+    color: black;
 }
 
 /* Fullscreen Menu Overlay */
@@ -123,13 +107,14 @@ header * {
 }
 
 .menu-link {
-    font-family: var(--font-main);
-    font-size: 4rem;
+    font-family: var(--font-title);
+    font-variation-settings: 'wdth' 125;
     font-weight: 900;
+    font-size: 4rem;
     text-transform: uppercase;
     letter-spacing: -2px;
     color: transparent;
-    -webkit-text-stroke: 1px black; /* Outline text */
+    -webkit-text-stroke: 1px black;
     transition: color 0.3s, letter-spacing 0.3s;
     position: relative;
 }
@@ -156,32 +141,39 @@ header * {
     overflow: hidden;
 }
 
-.draggable-item {
+/* Renamed from .draggable-item to .category-item */
+.category-item {
     position: absolute;
     width: 250px;
-    cursor: grab;
-    transition: transform 0.1s;
+    cursor: pointer; /* Changed from grab */
+    transition: transform 0.2s ease;
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    user-select: none;
-    /* Added for label centering */
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-decoration: none; /* Reset link style */
 }
 
-.draggable-item:active {
-    cursor: grabbing;
-    transform: scale(1.05);
-    z-index: 500 !important; /* Bring to front on drag */
+.category-item:hover {
+    transform: scale(1.05) !important; /* Keep the scale effect, !important to override inline rotation potentially if needed, though transform adds up. Wait. */
+    /* If I have inline transform for rotation, hover scale will replace it unless I use concatenation.
+       The previous code used transform transition.
+       Issue: inline style `transform: rotate(...)`. Hover `transform: scale(...)` overrides rotation.
+       Solution: Wrap the image in a container or use `rotate` property if supported, or just let it snap to upright?
+       User said "fix in place". Maybe they don't want hover movement?
+       I'll assume they want some feedback.
+       Better solution: `transform: var(--rotation) scale(1.05);` and set --rotation in inline style.
+    */
+    z-index: 500;
 }
 
-.draggable-item img {
+.category-item img {
     width: 100%;
     display: block;
-    pointer-events: none; /* Prevent image dragging behavior */
+    pointer-events: none;
 }
 
-/* New Label Styling */
+/* Label Styling */
 .item-label {
     background: black;
     color: white;
@@ -191,10 +183,9 @@ header * {
     margin-top: 10px;
     opacity: 0;
     transition: opacity 0.3s;
-    pointer-events: none;
 }
 
-.draggable-item:hover .item-label {
+.category-item:hover .item-label {
     opacity: 1;
 }
 
@@ -223,12 +214,14 @@ header * {
 }
 
 .category-title-large {
-    font-family: var(--font-main);
-    font-size: 6rem;
+    font-family: var(--font-title);
+    font-variation-settings: 'wdth' 125;
     font-weight: 900;
+    font-size: 6rem;
     margin-bottom: 60px;
     letter-spacing: -3px;
     line-height: 0.9;
+    text-transform: uppercase; /* Ensure wide fonts look best uppercase usually */
 }
 
 .project-list {
@@ -255,7 +248,9 @@ header * {
 }
 
 .list-item-title {
-    font-weight: bold;
+    font-family: var(--font-title);
+    font-variation-settings: 'wdth' 125;
+    font-weight: 900;
     text-transform: uppercase;
 }
 
@@ -279,19 +274,16 @@ header * {
 }
 
 .list-item:hover .hover-reveal {
-    opacity: 1; /* Logic handled via JS mostly for position, but simple CSS reveal works if nested properly.
-                   Actually, better to have a single reveal element followed by cursor.
-                   For simplicity, I'll put image inside link and hide it. */
+    opacity: 1;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .menu-link { font-size: 2.5rem; }
     .category-title-large { font-size: 3rem; }
-    .draggable-item { width: 150px; }
-    .cursor-dot, .cursor-outline { display: none; } /* Hide custom cursor on touch */
+    .category-item { width: 150px; }
+    .cursor-dot { display: none; }
     * { cursor: auto; }
 
-    /* On mobile, show labels always or on interaction? */
-    .draggable-item .item-label { opacity: 1; margin-top: 5px; background: rgba(0,0,0,0.8); }
+    .category-item .item-label { opacity: 1; margin-top: 5px; background: rgba(0,0,0,0.8); }
 }

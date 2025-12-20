@@ -2,27 +2,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Custom Cursor Logic ---
     const cursorDot = document.querySelector('.cursor-dot');
-    const cursorOutline = document.querySelector('.cursor-outline');
 
-    if (cursorDot && cursorOutline) {
+    if (cursorDot) {
         window.addEventListener('mousemove', (e) => {
             const posX = e.clientX;
             const posY = e.clientY;
 
+            // Simple direct movement
             cursorDot.style.left = `${posX}px`;
             cursorDot.style.top = `${posY}px`;
-
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
         });
 
-        const clickables = document.querySelectorAll('a, .menu-toggle, .menu-close, .draggable-item');
-        clickables.forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-        });
+        // Add hover effect trigger to body (optional, mostly for legacy CSS if any left)
+        // But since we removed outline, we might not need body.hovering except if we want the dot to change.
+        // Let's keep the dot simple as requested.
     }
 
     // --- Menu Toggle Logic ---
@@ -40,130 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Draggable Logic (Homepage) ---
+    // --- Stamp / Sticker Feature (Kept as Easter Egg) ---
     const deskContainer = document.getElementById('deskContainer');
     if (deskContainer) {
-        let activeItem = null;
-        let initialX, initialY, currentX, currentY;
-        let xOffset = 0, yOffset = 0;
-        let startX, startY; // To detect click vs drag
-
-        const draggables = document.querySelectorAll('.draggable-item');
-
-        draggables.forEach(item => {
-            item.addEventListener('mousedown', dragStart);
-            item.addEventListener('touchstart', dragStart, {passive: false});
-        });
-
-        document.addEventListener('mouseup', dragEnd);
-        document.addEventListener('touchend', dragEnd);
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('touchmove', drag, {passive: false});
-
-        function dragStart(e) {
-            // Check if touch or mouse
-            const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-            const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
-
-            activeItem = e.currentTarget;
-            startX = clientX;
-            startY = clientY;
-
-            const rect = activeItem.getBoundingClientRect();
-            initialX = clientX - rect.left;
-            initialY = clientY - rect.top;
-
-            activeItem.style.zIndex = 1000;
-        }
-
-        function dragEnd(e) {
-            if (!activeItem) return;
-
-            // Detect Click vs Drag
-            // If it's a touch event, changedTouches might be needed, but we rely on the last move pos or just compare start
-            // Actually, for mouseup, we can use clientX if available, or just track if we moved.
-
-            // Let's use a flag or distance check.
-            // But we need the final coordinate.
-            // Simpler: Determine if we moved significantly during the drag phase.
-            // We can check the item's current position vs start, or just use a `isDragging` flag set in `drag()`.
-
-            // However, distinguishing click requires us to know where we ended up.
-            // Since `drag` updates the style, we can check.
-            // OR better: calculate distance from startX/startY.
-
-            // For mouseup, e.clientX exists. For touchend, it doesn't.
-            // Let's rely on a global `hasMoved` flag.
-
-            activeItem.style.zIndex = "";
-            activeItem = null;
-        }
-
-        let hasMoved = false;
-
-        function drag(e) {
-            if (activeItem) {
-                e.preventDefault();
-
-                const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-                const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
-
-                // Calculate distance to determine "Moved" status
-                const dist = Math.hypot(clientX - startX, clientY - startY);
-                if (dist > 5) {
-                    hasMoved = true;
-                } else {
-                    hasMoved = false;
-                }
-
-                const x = clientX - initialX;
-                const y = clientY - initialY;
-
-                activeItem.style.left = `${x}px`;
-                activeItem.style.top = `${y}px`;
-            }
-        }
-
-        // Handle Link Navigation on Click
-        draggables.forEach(item => {
-            item.addEventListener('click', (e) => {
-                if (hasMoved) {
-                    e.preventDefault(); // Prevent link if dragged
-                    hasMoved = false; // Reset
-                } else {
-                    // It's a click!
-                    const link = item.getAttribute('data-link');
-                    if (link) {
-                        window.location.href = link;
-                    }
-                }
-            });
-            // Touch devices often fire click after touchend, but not always if preventDefault is called in touchmove.
-            // If we called preventDefault in touchmove (we did), click might not fire on some devices.
-            // We need to manually handle navigation for touch if it was a tap.
-
-            item.addEventListener('touchend', (e) => {
-                // If we didn't move (tap), we should navigate.
-                // Note: dragEnd runs before this listener usually if attached to document, but here it's on item.
-                // Wait, I attached dragEnd to document.
-
-                // Let's handle tap logic inside this listener or a unified handler.
-                // If hasMoved is false, treat as click.
-                if (!hasMoved) {
-                    const link = item.getAttribute('data-link');
-                    if (link) {
-                        window.location.href = link;
-                    }
-                }
-                hasMoved = false; // Reset
-            });
-        });
-    }
-
-    // --- Stamp / Sticker Feature ---
-    if (deskContainer) {
         deskContainer.addEventListener('click', (e) => {
-            if (e.target.closest('.draggable-item') || e.target.closest('header')) return;
+            // Prevent stamp if clicking on a category item (which is now an anchor) or header
+            if (e.target.closest('a') || e.target.closest('header')) return;
 
             const stickers = ['★', '✿', '☺', '✸', '✦', '👁️', '✨'];
             const sticker = stickers[Math.floor(Math.random() * stickers.length)];
@@ -185,14 +60,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Hover Reveal Logic (List Pages) ---
-    const listItems = document.querySelectorAll('.list-item');
-    const revealImg = document.getElementById('hoverRevealImg');
+    // If on a subpage that has list items, we might want to follow the cursor with an image.
+    // The previous CSS handled opacity. We just need to move the reveal image if it exists.
+    // Note: The previous code assumed a single #hoverRevealImg element exists, but the HTML generation for subpages isn't visible here.
+    // Assuming standard list page structure involves `data-img` on list items.
 
-    if (listItems.length > 0 && revealImg) {
+    // Let's create the hoverRevealImg dynamically if it doesn't exist but list items do?
+    // Or assume the subpages have it.
+    // Since I can't see subpages right now, I'll keep the logic generic.
+
+    const listItems = document.querySelectorAll('.list-item');
+    let revealImg = document.getElementById('hoverRevealImg');
+
+    if (listItems.length > 0) {
+        // Create reveal img if missing (helper)
+        if (!revealImg) {
+            revealImg = document.createElement('img');
+            revealImg.id = 'hoverRevealImg';
+            revealImg.className = 'hover-reveal';
+            document.body.appendChild(revealImg);
+        }
+
         window.addEventListener('mousemove', (e) => {
+            // Move the image near cursor
             const x = e.clientX + 20;
             const y = e.clientY + 20;
-
             revealImg.style.left = `${x}px`;
             revealImg.style.top = `${y}px`;
         });
@@ -211,5 +103,4 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-
 });

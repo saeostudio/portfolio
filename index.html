@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stefan Land | Portfolio</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- Inline styles to handle rotation/position without JS affecting it -->
+    <style>
+        .category-item:hover {
+            /* Since we want to keep rotation on hover, we must not override transform completely.
+               However, CSS transforms override each other.
+               We can use a wrapper or just accept the snap to 0deg, OR use CSS variables for rotation.
+               Let's set CSS variables in the HTML style attribute.
+            */
+            transform: var(--rotation) scale(1.05);
+            z-index: 500;
+        }
+    </style>
 </head>
 <body>
 
     <!-- Custom Cursor -->
     <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
 
     <!-- Fixed Header -->
     <header>
@@ -31,47 +42,45 @@
             <a href="portraits.html" class="menu-link" data-img="https://placehold.co/600x400?text=Port">Portraits</a>
             <a href="travel.html" class="menu-link" data-img="https://placehold.co/600x400?text=Trav">Travel</a>
             <a href="analogue.html" class="menu-link" data-img="https://placehold.co/600x400?text=Film">Analogue</a>
-            <a href="about.html" class="menu-link" style="-webkit-text-stroke: 0; color: black; font-size: 2rem; margin-top: 40px;">About</a>
+            <a href="about.html" class="menu-link" style="-webkit-text-stroke: 0; color: black; font-size: 2rem; margin-top: 40px; font-family: var(--font-main);">About</a>
         </div>
     </div>
 
-    <!-- Homepage: Draggable Desk -->
+    <!-- Homepage: Desk Layout (Static) -->
     <main class="desk-container" id="deskContainer">
-        <!-- Category Items -->
 
         <!-- Commissioned -->
-        <div class="draggable-item" data-link="commissioned.html" style="top: 20%; left: 25%; transform: rotate(-5deg);">
+        <a href="commissioned.html" class="category-item" style="top: 20%; left: 25%; --rotation: rotate(-5deg); transform: var(--rotation);">
             <img src="https://placehold.co/600x450/e0e0e0/ffffff?text=Commissioned" alt="Commissioned">
             <div class="item-label">Commissioned</div>
-        </div>
+        </a>
 
         <!-- Personal -->
-        <div class="draggable-item" data-link="personal.html" style="top: 50%; left: 60%; transform: rotate(8deg); z-index: 2;">
+        <a href="personal.html" class="category-item" style="top: 50%; left: 60%; --rotation: rotate(8deg); transform: var(--rotation); z-index: 2;">
             <img src="https://placehold.co/500x600/d0d0d0/ffffff?text=Personal" alt="Personal">
             <div class="item-label">Personal Projects</div>
-        </div>
+        </a>
 
         <!-- Portraits -->
-        <div class="draggable-item" data-link="portraits.html" style="top: 15%; left: 65%; transform: rotate(-3deg);">
+        <a href="portraits.html" class="category-item" style="top: 15%; left: 65%; --rotation: rotate(-3deg); transform: var(--rotation);">
             <img src="https://placehold.co/500x500/f0f0f0/ffffff?text=Portraits" alt="Portraits">
             <div class="item-label">Portraits</div>
-        </div>
+        </a>
 
         <!-- Travel -->
-        <div class="draggable-item" data-link="travel.html" style="top: 60%; left: 15%; transform: rotate(-10deg);">
+        <a href="travel.html" class="category-item" style="top: 60%; left: 15%; --rotation: rotate(-10deg); transform: var(--rotation);">
             <img src="https://placehold.co/600x400/eeeeee/ffffff?text=Travel" alt="Travel">
             <div class="item-label">Travel Diaries</div>
-        </div>
+        </a>
 
         <!-- Analogue -->
-        <div class="draggable-item" data-link="analogue.html" style="top: 35%; left: 45%; transform: rotate(5deg);">
+        <a href="analogue.html" class="category-item" style="top: 35%; left: 45%; --rotation: rotate(5deg); transform: var(--rotation);">
             <img src="https://placehold.co/400x400/cccccc/ffffff?text=Analogue" alt="Analogue">
             <div class="item-label">Analogue Archive</div>
-        </div>
+        </a>
 
-        <!-- Instructions (Bottom Right) -->
+        <!-- Instructions (Updated) -->
         <div style="position: absolute; bottom: 40px; right: 40px; font-family: 'Courier New', monospace; font-size: 12px; opacity: 0.5; pointer-events: none; text-align: right;">
-            ( drag to organize )<br>
             ( click to explore )
         </div>
 
